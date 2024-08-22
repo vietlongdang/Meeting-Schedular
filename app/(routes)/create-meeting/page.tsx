@@ -1,10 +1,17 @@
 "use client";
+
 import React, { useState } from "react";
 import MeetingForm from "./_components/MeetingForm";
 import PreviewMeeting from "./_components/PreviewMeeting";
 
 function CreateMeeting() {
-  const [formValue, setFormValue] = useState();
+  const [formValue, setFormValue] = useState({
+    eventName: "",
+    duration: 30,
+    locationType: "",
+    locationUrl: "",
+    themeColor: "",
+  });
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3">

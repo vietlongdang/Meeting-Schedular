@@ -22,7 +22,7 @@ export const Email = ({
   meetingTime,
   date,
   meetingUrl,
-  username
+  username,
 }: any) => {
   return (
     <Html>

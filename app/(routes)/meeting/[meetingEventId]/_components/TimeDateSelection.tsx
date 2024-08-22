@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import {addMinutes, isAfter, isBefore, parse} from "date-fns";
+import { addMinutes, isAfter, isBefore, parse } from "date-fns";
 
 function TimeDateSelection({
   date,
@@ -10,10 +10,14 @@ function TimeDateSelection({
   enableTimeSlot,
   selectedTime,
   prevBooking,
-  availabilities
+  availabilities,
 }: any) {
-  const availableStartTime = parse(availabilities.startTime, 'HH:mm', new Date());
-  const availableEndTime = parse(availabilities.endTime, 'HH:mm', new Date());
+  const availableStartTime = parse(
+    availabilities.startTime,
+    "HH:mm",
+    new Date(),
+  );
+  const availableEndTime = parse(availabilities.endTime, "HH:mm", new Date());
 
   /**
    * Used to check timeslot whether its already booked or not
@@ -21,24 +25,26 @@ function TimeDateSelection({
    * @returns Boolean
    */
   const isSlotBooked = (time: string) => {
-    return (
-      prevBooking.some((item: any) => {
-        return item.selectedTime == time
-      })
-    );
+    return prevBooking.some((item: any) => {
+      return item.selectedTime == time;
+    });
   };
 
   const outOfAvailableRange = (time: string) => {
     const [hour, minutes, modifier] = time.split(/[:\s]/); // Split time into hour, minutes, and AM/PM
     const hourInt = parseInt(hour);
     const minutesInt = parseInt(minutes);
-    const isPM = modifier === 'PM';
+    const isPM = modifier === "PM";
 
     // Convert 12-hour time to 24-hour time for easier comparison
     const hour24 = isPM ? (hourInt === 12 ? 12 : hourInt + 12) : hourInt;
 
-    const timeInDate = parse(`${hour24}:${minutesInt}`, 'HH:mm', new Date());
-    return !(isAfter(addMinutes(timeInDate, 1), availableStartTime) && isBefore(timeInDate, availableEndTime) || timeInDate.getTime() === availableEndTime.getTime());
+    const timeInDate = parse(`${hour24}:${minutesInt}`, "HH:mm", new Date());
+    return !(
+      (isAfter(addMinutes(timeInDate, 1), availableStartTime) &&
+        isBefore(timeInDate, availableEndTime)) ||
+      timeInDate.getTime() === availableEndTime.getTime()
+    );
   };
 
   return (
@@ -61,7 +67,9 @@ function TimeDateSelection({
         {timeSlots?.map((time: any, index: any) => (
           <Button
             key={index}
-            disabled={!enableTimeSlot || isSlotBooked(time) || outOfAvailableRange(time)}
+            disabled={
+              !enableTimeSlot || isSlotBooked(time) || outOfAvailableRange(time)
+            }
             onClick={() => setSelectedTime(time)}
             className={`border-primary
              text-primary

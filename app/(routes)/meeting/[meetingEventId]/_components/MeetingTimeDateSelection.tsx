@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
 import { Button } from "@/components/ui/button";
-import {addMinutes, format, setHours, setMinutes} from "date-fns";
+import { addMinutes, format, setHours, setMinutes } from "date-fns";
 import { CalendarCheck, Clock, LoaderIcon, MapPin, Timer } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,11 +10,10 @@ import TimeDateSelection from "./TimeDateSelection";
 import UserFormInfo from "./UserFormInfo";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import {Availabilities, ScheduledMeetings} from "@/app/(routes)/dashboard/availability/data";
-import {Resend} from 'resend'
+import { ScheduledMeetings } from "@/app/(routes)/dashboard/availability/data";
 import { render } from "@react-email/render";
 import Email from "@/emails";
-import {scheduleMeeting} from "@/actions";
+import { scheduleMeeting } from "@/actions";
 
 function MeetingTimeDateSelection({ eventInfo, availabilities }: any) {
   const [date, setDate] = useState<Date>(new Date());
@@ -34,7 +33,7 @@ function MeetingTimeDateSelection({ eventInfo, availabilities }: any) {
     eventInfo?.duration && generateTimeSlots(8, 22, eventInfo.duration);
   }, [eventInfo]);
 
-  const generateTimeSlots = (startHour = 0, endHour= 0, interval = 30) => {
+  const generateTimeSlots = (startHour = 0, endHour = 0, interval = 30) => {
     const slots = [];
     const startTime = setMinutes(setHours(new Date(), startHour), 0); // Start at startHour:00
     const endTime = setMinutes(setHours(new Date(), endHour), 0); // End at endHour:00
@@ -42,10 +41,10 @@ function MeetingTimeDateSelection({ eventInfo, availabilities }: any) {
     let currentTime = startTime;
 
     while (currentTime <= endTime) {
-      slots.push(format(currentTime, 'hh:mm a'));
+      slots.push(format(currentTime, "hh:mm a"));
       currentTime = addMinutes(currentTime, interval); // Increment by 30 minutes
     }
-    setTimeSlots(slots)
+    setTimeSlots(slots);
   };
 
   /**
@@ -69,10 +68,10 @@ function MeetingTimeDateSelection({ eventInfo, availabilities }: any) {
    */
   const handleScheduleEvent = () => {
     setLoading(true);
-    scheduleMeeting({date, selectedTime, userEmail, userName, userNote})
+    scheduleMeeting({ date, selectedTime, userEmail, userName, userNote });
     router.replace("/confirmation");
     toast("Meeting Scheduled successfully!");
-    setLoading(false)
+    setLoading(false);
 
     // await setDoc(doc(db, "ScheduledMeetings", docId), {
     //   businessName: businessInfo.businessName,
@@ -101,7 +100,7 @@ function MeetingTimeDateSelection({ eventInfo, availabilities }: any) {
   const sendEmail = (user: any) => {
     const emailHtml = render(
       <Email
-        userName={'username'}
+        userName={"username"}
         date={format(date, "PPP").toString()}
         duration={eventInfo?.duration}
         meetingTime={selectedTime}
@@ -127,10 +126,11 @@ function MeetingTimeDateSelection({ eventInfo, availabilities }: any) {
    * @param {*} date
    */
 
-    //TODO: Fix naming to add Selected Date
+  //TODO: Fix naming to add Selected Date
   const addPrevEventBooking = async (date: any) => {
-    const getSelectedDateSchedule = ScheduledMeetings.filter(meeting =>
-       meeting.selectedDate.toDateString() === date.toDateString());
+    const getSelectedDateSchedule = ScheduledMeetings.filter(
+      (meeting) => meeting.selectedDate.toDateString() === date.toDateString(),
+    );
     setPrevBooking(getSelectedDateSchedule);
   };
 
@@ -189,7 +189,7 @@ function MeetingTimeDateSelection({ eventInfo, availabilities }: any) {
             timeSlots={timeSlots}
             selectedTime={selectedTime}
             prevBooking={prevBooking}
-            availabilities={Availabilities}
+            availabilities={availabilities}
           />
         ) : (
           <UserFormInfo

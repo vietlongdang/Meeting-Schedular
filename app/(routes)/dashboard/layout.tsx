@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import SideNavBar from "./_components/SideNavBar";
 import { Toaster } from "@/components/ui/sonner";
 import { UserButton } from "@clerk/nextjs";
@@ -9,9 +9,13 @@ import { usePathname, useRouter } from "next/navigation";
 function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  if (pathname === "/dashboard") {
-    router.replace("/dashboard/meeting-type");
-  }
+
+  useEffect(() => {
+    if (pathname === "/dashboard") {
+      router.replace("/dashboard/meeting-type");
+    }
+  });
+
   return (
     <div>
       <div className="hidden md:block md:w-64 bg-slate-50 h-screen fixed">

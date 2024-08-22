@@ -20,7 +20,7 @@ export const ScheduledMeetings = [
     duration: 45,
     eventId: 1,
     selectedDate: new Date("August 27, 2024"),
-    selectedTime: "09:30 AM",
+    selectedTime: "12:30 PM",
     userEmail: "account@gmail.com",
     userName: "alex",
     userNote: "test",

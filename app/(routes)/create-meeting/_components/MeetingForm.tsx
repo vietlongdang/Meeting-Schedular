@@ -29,7 +29,13 @@ function MeetingForm({ setFormValue }: { setFormValue: any }) {
   const router = useRouter();
 
   useEffect(() => {
-    setFormValue({eventName, duration, locationType, locationUrl, themeColor});
+    setFormValue({
+      eventName,
+      duration,
+      locationType,
+      locationUrl,
+      themeColor,
+    });
   }, [eventName, duration, locationType, locationUrl, themeColor]);
 
   /**
@@ -46,20 +52,10 @@ function MeetingForm({ setFormValue }: { setFormValue: any }) {
       themeColor,
       createdBy: user?.primaryEmailAddress?.emailAddress || "",
     });
-    // await setDoc(doc(db, "MeetingEvent", id), {
-    //   id: id,
-    //   eventName: eventName,
-    //   duration: duration,
-    //   locationType: locationType,
-    //   locationUrl: locationUrl,
-    //   themeColor: themeColor,
-    //   // Remove
-    //   businessId: doc(db, "Business", user?.email),
-    //   createdBy: user?.email,
-    // });
     toast("New Meeting Event Created!");
     router.replace("/dashboard/meeting-type");
   };
+
   return (
     <div className="p-8 ">
       <Link href={"/dashboard"}>
@@ -146,7 +142,6 @@ function MeetingForm({ setFormValue }: { setFormValue: any }) {
           ))}
         </div>
       </div>
-
       <Button
         className="w-full mt-9"
         disabled={!eventName || !duration || !locationType || !locationUrl}

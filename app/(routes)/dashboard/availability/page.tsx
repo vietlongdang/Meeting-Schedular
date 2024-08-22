@@ -1,30 +1,18 @@
 "use client";
 import DaysList from "@/app/_utils/DaysList";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-// import {
-//   collection,
-//   doc,
-//   getDoc,
-//   getFirestore,
-//   updateDoc,
-// } from "firebase/firestore";
-// import { app } from "@/config/FirebaseConfig";
-// import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { toast } from "sonner";
-import { useUser } from "@clerk/nextjs";
 import { Availabilities } from "@/app/(routes)/dashboard/availability/data";
-import {availableParallelism} from "os";
-import {parse} from "date-fns";
 
 function Availability() {
-  const [daysAvailable, setDaysAvailable] = useState(Availabilities.daysAvailable);
+  const [daysAvailable, setDaysAvailable] = useState(
+    Availabilities.daysAvailable,
+  );
   const [startTime, setStartTime] = useState(Availabilities.startTime);
   const [endTime, setEndTime] = useState(Availabilities.endTime);
-  // const db = getFirestore(app);
-  const { user } = useUser();
 
   const onHandleChange = (day: any, value: any) => {
     setDaysAvailable({
@@ -34,10 +22,10 @@ function Availability() {
   };
 
   const handleSave = () => {
-    Availabilities.daysAvailable = daysAvailable
-    Availabilities.startTime = startTime
-    Availabilities.endTime = endTime
-    toast("Availability Updated!")
+    Availabilities.daysAvailable = daysAvailable;
+    Availabilities.startTime = startTime;
+    Availabilities.endTime = endTime;
+    toast("Availability Updated!");
   };
 
   return (
