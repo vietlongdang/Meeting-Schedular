@@ -6,27 +6,16 @@ import ScheduledMeetingList from "./_components/ScheduledMeetingList";
 // import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 // import { app } from '@/config/FirebaseConfig'
 import { format } from "date-fns";
+import {ScheduledMeetings} from "@/app/(routes)/dashboard/availability/data";
 
 function ScheduledMeeting() {
   // const db=getFirestore(app);
   // const {user}=useKindeBrowserClient();
-  const [meetingList, setMeetingList] = useState([]);
+  const [meetingList, setMeetingList] = useState(ScheduledMeetings);
   // useEffect(()=>{
   //     user&&getScheduledMeetings();
   // },[user])
-  /**
-   * Used to Get business prev Meetings
-   */
-  const getScheduledMeetings = async () => {
-    // const q=query(collection(db,'ScheduledMeetings'),
-    // where('businessEmail','==',user.email));
-    // const querySnapshot=await getDocs(q);
-    //
-    // querySnapshot.forEach(doc=>{
-    //     console.log(doc.data());
-    //     setMeetingList(prev=>[...prev,doc.data()])
-    // })
-  };
+
 
   /**
    * Used to Filter the Meeting

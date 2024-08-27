@@ -1,7 +1,6 @@
 import { toast } from "sonner";
 import { ScheduledMeetings } from "@/app/(routes)/dashboard/availability/data";
 import { render } from "@react-email/render";
-import Email from "@/emails";
 import { format } from "date-fns";
 import { redirect } from "next/navigation";
 import { Resend } from "resend";
@@ -33,9 +32,6 @@ export const scheduleMeeting = async ({
     userNote,
   });
 
-  // const emailHtml = render(
-  // <Email />
-  // );
   resend.emails
     .send({
       from: "fromemail@gmail.com",
